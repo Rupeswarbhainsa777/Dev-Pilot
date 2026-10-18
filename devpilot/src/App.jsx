@@ -13,16 +13,17 @@ function App() {
 
         <>
             <NaveBar />
-            <Routes>
-
-                <Route path="/" element={<Home/>}/>
-                <Route path="/about" element={<About/>}/>
-                <Route path="/history" element={<History/>}/>
-                <Route path="/dashboard" element={<Dashboard/>}/>
-                <Route path="/repos" element={<MyRepos/>}/>
-
-            </Routes></>
-    )
+            <main className="mx-auto max-w-7xl px-4 sm:px-6 py-6">
+                <Routes>
+                    <Route path="/" element={<Home/>}/>
+                    <Route path="/about" element={<About/>}/>
+                    <Route path="/history" element={<History/>}/>
+                    <Route path="/dashboard" element={<Dashboard/>}/>
+                    <Route path="/repos" element={<MyRepos/>}/>
+                </Routes>
+            </main>
+        </>
+);
 }
 
 export default App;
