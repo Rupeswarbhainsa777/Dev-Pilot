@@ -31,7 +31,7 @@ const ICONS = {
 };
 
 const NAV_ITEMS = [
-    { id: "dashboard", label: "Dashboard", icon: ICONS.dashboard },
+    { id: "/dashboard", label: "Dashboard", icon: ICONS.dashboard },
     { id: "analyze", label: "Analyze repo", icon: ICONS.analyze },
     { id: "repos", label: "My repositories", icon: ICONS.repos },
     { id: "history", label: "History", icon: ICONS.history },
