@@ -126,25 +126,25 @@ const groups = [
 const allItems = groups.flatMap((group) => group.items);
 
 const focusRing =
-    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-50 dark:focus-visible:ring-offset-slate-950";
+    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-brand)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--color-cal-bg)]";
 
 const About = () => {
     const [selectedId, setSelectedId] = useState(allItems[0].id);
     const selected = allItems.find((item) => item.id === selectedId);
 
     return (
-        <main className="min-h-screen bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200">
+        <main className="page-enter min-h-screen" style={{ color: "var(--color-cal-default)" }}>
             <div className="mx-auto max-w-6xl px-6 py-16 sm:py-24">
                 {/* Hero: text on the left, a sample conversation on the right */}
                 <section className="grid items-center gap-12 lg:grid-cols-2">
                     <div>
-                        <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                        <span className="badge badge-brand mb-4 inline-flex">
                             About {PROJECT_NAME}
-                        </p>
-                        <h1 className="mt-4 text-4xl font-bold tracking-tight text-slate-900 sm:text-5xl dark:text-white">
+                        </span>
+                        <h1 className="mt-2 text-4xl font-bold tracking-tight sm:text-5xl" style={{ color: "var(--color-cal-emphasis)" }}>
                             Understand any GitHub repository without reading every file.
                         </h1>
-                        <p className="mt-6 max-w-prose text-lg leading-8 text-slate-600 dark:text-slate-400">
+                        <p className="mt-6 max-w-prose text-lg leading-8" style={{ color: "var(--color-cal-muted)" }}>
                             {PROJECT_NAME} sends a repository's code, documentation and
                             history to an AI model, then lets you ask questions about it in
                             plain English. It is made for people who are new to a codebase:
@@ -155,36 +155,41 @@ const About = () => {
 
                     <figure
                         aria-label="Example conversation about a repository"
-                        className="overflow-hidden rounded-2xl border border-slate-200 bg-white shadow-xl shadow-indigo-500/10 dark:border-slate-800 dark:bg-slate-900"
+                        className="cal-card overflow-hidden rounded-2xl shadow-xl"
+                        style={{ boxShadow: "var(--shadow-popover)" }}
                     >
-                        <div className="flex items-center justify-between gap-4 border-b border-slate-200 px-5 py-3 dark:border-slate-800">
-              <span className="truncate font-mono text-sm text-slate-600 dark:text-slate-400">
-                github.com/owner/repo
-              </span>
-                            <span className="shrink-0 rounded-full bg-emerald-100 px-2.5 py-0.5 text-xs font-medium text-emerald-800 dark:bg-emerald-900/40 dark:text-emerald-300">
-                48 files read
-              </span>
+                        <div
+                            className="flex items-center justify-between gap-4 px-5 py-3"
+                            style={{ borderBottom: "1px solid var(--color-cal-border)", background: "var(--color-cal-elevated)" }}
+                        >
+                            <span className="truncate font-mono text-sm" style={{ color: "var(--color-cal-muted)" }}>
+                                github.com/owner/repo
+                            </span>
+                            <span className="badge badge-success shrink-0">
+                                <span className="dot-pulse mr-1" />
+                                48 files read
+                            </span>
                         </div>
 
                         <div className="space-y-4 p-5">
                             <div className="flex justify-end">
-                                <p className="max-w-[85%] rounded-2xl rounded-br-sm bg-indigo-600 px-4 py-2 text-sm text-white">
+                                <p className="max-w-[85%] rounded-2xl rounded-br-sm px-4 py-2 text-sm text-white" style={{ background: "var(--color-brand)" }}>
                                     Which frameworks does this use?
                                 </p>
                             </div>
 
-                            <div className="max-w-[92%] rounded-2xl rounded-bl-sm bg-slate-100 px-4 py-3 dark:bg-slate-800">
-                                <p className="text-sm leading-6 text-slate-800 dark:text-slate-200">
+                            <div className="max-w-[92%] rounded-2xl rounded-bl-sm px-4 py-3" style={{ background: "var(--color-cal-elevated)" }}>
+                                <p className="text-sm leading-6" style={{ color: "var(--color-cal-default)" }}>
                                     It is a React 18 app built with Vite and styled with Tailwind
                                     CSS. Tests run with Vitest through the workflow that starts on
                                     every push.
                                 </p>
-                                <p className="mt-3 flex flex-wrap items-center gap-2 text-xs text-slate-500 dark:text-slate-400">
+                                <p className="mt-3 flex flex-wrap items-center gap-2 text-xs" style={{ color: "var(--color-cal-muted)" }}>
                                     Based on
-                                    <code className="rounded bg-white px-1.5 py-0.5 font-mono dark:bg-slate-900">
+                                    <code className="rounded px-1.5 py-0.5 font-mono" style={{ background: "var(--color-cal-surface)" }}>
                                         package.json
                                     </code>
-                                    <code className="rounded bg-white px-1.5 py-0.5 font-mono dark:bg-slate-900">
+                                    <code className="rounded px-1.5 py-0.5 font-mono" style={{ background: "var(--color-cal-surface)" }}>
                                         .github/workflows/ci.yml
                                     </code>
                                 </p>
@@ -197,7 +202,8 @@ const About = () => {
                 <section className="mt-24" aria-labelledby="how-to-use">
                     <h2
                         id="how-to-use"
-                        className="text-xl font-semibold text-slate-900 dark:text-white"
+                        className="text-xl font-semibold"
+                        style={{ color: "var(--color-cal-emphasis)" }}
                     >
                         Using it with your repository takes four steps
                     </h2>
@@ -206,19 +212,23 @@ const About = () => {
                         {steps.map((step, index) => (
                             <li
                                 key={step.title}
-                                className="relative border-l-2 border-slate-300 pl-6 md:border-l-0 md:border-t-2 md:pl-0 md:pt-6 dark:border-slate-700"
+                                className="relative pl-6 md:pl-0 md:pt-6"
+                                style={{
+                                    borderLeft: "2px solid var(--color-cal-border)",
+                                }}
                             >
-                <span
-                    aria-hidden="true"
-                    className="absolute -left-[7px] top-0 h-3 w-3 rounded-full bg-indigo-600 md:left-0 md:-top-[7px]"
-                />
-                                <p className="text-sm font-medium text-indigo-600 dark:text-indigo-400">
+                                <span
+                                    aria-hidden="true"
+                                    className="absolute -left-[7px] top-0 h-3 w-3 rounded-full"
+                                    style={{ background: "var(--color-brand)" }}
+                                />
+                                <p className="text-sm font-medium" style={{ color: "#a78bfa" }}>
                                     Step {index + 1}
                                 </p>
-                                <h3 className="mt-1 font-semibold text-slate-900 dark:text-white">
+                                <h3 className="mt-1 font-semibold" style={{ color: "var(--color-cal-emphasis)" }}>
                                     {step.title}
                                 </h3>
-                                <p className="mt-2 text-sm leading-6 text-slate-600 dark:text-slate-400">
+                                <p className="mt-2 text-sm leading-6" style={{ color: "var(--color-cal-muted)" }}>
                                     {step.body}
                                 </p>
                             </li>
@@ -231,25 +241,36 @@ const About = () => {
                     <div className="grid gap-4 md:grid-cols-[16rem_1fr] md:gap-8">
                         <h2
                             id="explorer"
-                            className="text-2xl font-bold tracking-tight text-slate-900 dark:text-white"
+                            className="text-2xl font-bold tracking-tight"
+                            style={{ color: "var(--color-cal-emphasis)" }}
                         >
                             What the AI reads on GitHub
                         </h2>
-                        <p className="max-w-prose leading-7 text-slate-600 dark:text-slate-400">
+                        <p className="max-w-prose leading-7" style={{ color: "var(--color-cal-muted)" }}>
                             A repository is more than code. Select any part below to see what
                             it contains and how the AI uses it to answer your questions.
                         </p>
                     </div>
 
-                    <div className="mt-8 grid overflow-hidden rounded-2xl border border-slate-200 bg-white md:grid-cols-[16rem_1fr] dark:border-slate-800 dark:bg-slate-900">
+                    <div
+                        className="mt-8 grid overflow-hidden rounded-2xl md:grid-cols-[16rem_1fr]"
+                        style={{ border: "1px solid var(--color-cal-border)", background: "var(--color-cal-surface)" }}
+                    >
                         {/* Left: the list of repository parts */}
                         <nav
                             aria-label="Parts of a GitHub repository"
-                            className="border-b border-slate-200 bg-slate-50 p-3 md:border-b-0 md:border-r dark:border-slate-800 dark:bg-slate-950/50"
+                            className="p-3"
+                            style={{
+                                borderBottom: "1px solid var(--color-cal-border)",
+                                background: "var(--color-cal-elevated)",
+                            }}
                         >
                             {groups.map((group, groupIndex) => (
                                 <div key={group.label} className={groupIndex > 0 ? "mt-4" : ""}>
-                                    <p className="px-3 pb-1 text-xs font-medium text-slate-500 dark:text-slate-400">
+                                    <p
+                                        className="px-3 pb-1 text-xs font-medium uppercase tracking-wide"
+                                        style={{ color: "var(--color-cal-muted)" }}
+                                    >
                                         {group.label}
                                     </p>
                                     <ul>
@@ -261,11 +282,13 @@ const About = () => {
                                                         type="button"
                                                         onClick={() => setSelectedId(item.id)}
                                                         aria-current={isSelected ? "true" : undefined}
-                                                        className={`w-full rounded-md px-3 py-2 text-left font-mono text-sm transition-colors ${focusRing} ${
-                                                            isSelected
-                                                                ? "bg-indigo-600 text-white"
-                                                                : "text-slate-700 hover:bg-slate-200 dark:text-slate-300 dark:hover:bg-slate-800"
-                                                        }`}
+                                                        className={`w-full rounded-lg px-3 py-2 text-left font-mono text-sm transition-all ${focusRing}`}
+                                                        style={isSelected ? {
+                                                            background: "var(--color-brand-muted)",
+                                                            color: "#a78bfa",
+                                                        } : {
+                                                            color: "var(--color-cal-subtle)",
+                                                        }}
                                                     >
                                                         {item.name}
                                                     </button>
@@ -279,37 +302,46 @@ const About = () => {
 
                         {/* Right: details for the selected part */}
                         <div aria-live="polite" className="p-6 sm:p-8">
-                            <h3 className="font-mono text-xl font-semibold text-slate-900 dark:text-white">
+                            <h3 className="font-mono text-xl font-semibold" style={{ color: "var(--color-cal-emphasis)" }}>
                                 {selected.name}
                             </h3>
 
                             <dl className="mt-6 space-y-5">
                                 <div>
-                                    <dt className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                                    <dt className="text-sm font-medium" style={{ color: "var(--color-cal-muted)" }}>
                                         What it is
                                     </dt>
-                                    <dd className="mt-1 max-w-prose leading-7">
+                                    <dd className="mt-1 max-w-prose leading-7" style={{ color: "var(--color-cal-subtle)" }}>
                                         {selected.summary}
                                     </dd>
                                 </div>
                                 <div>
-                                    <dt className="text-sm font-medium text-slate-500 dark:text-slate-400">
+                                    <dt className="text-sm font-medium" style={{ color: "var(--color-cal-muted)" }}>
                                         How the AI uses it
                                     </dt>
-                                    <dd className="mt-1 max-w-prose leading-7">
+                                    <dd className="mt-1 max-w-prose leading-7" style={{ color: "var(--color-cal-subtle)" }}>
                                         {selected.usage}
                                     </dd>
                                 </div>
                             </dl>
 
-                            <div className="mt-8 rounded-xl border border-slate-200 p-5 dark:border-slate-700">
-                                <p className="text-sm text-slate-500 dark:text-slate-400">
+                            <div
+                                className="mt-8 rounded-xl p-5"
+                                style={{ border: "1px solid var(--color-cal-border)", background: "var(--color-cal-elevated)" }}
+                            >
+                                <p className="text-sm" style={{ color: "var(--color-cal-muted)" }}>
                                     Example question
                                 </p>
-                                <p className="mt-1 font-medium text-slate-900 dark:text-white">
+                                <p className="mt-1 font-medium" style={{ color: "var(--color-cal-emphasis)" }}>
                                     {selected.question}
                                 </p>
-                                <p className="mt-4 border-l-4 border-emerald-500 pl-4 text-sm leading-6 text-slate-700 dark:text-slate-300">
+                                <p
+                                    className="mt-4 pl-4 text-sm leading-6"
+                                    style={{
+                                        borderLeft: "3px solid var(--color-success)",
+                                        color: "var(--color-cal-default)",
+                                    }}
+                                >
                                     {selected.answer}
                                 </p>
                             </div>
@@ -318,7 +350,10 @@ const About = () => {
                 </section>
 
                 {/* Closing note */}
-                <p className="mt-16 max-w-prose border-t border-slate-200 pt-6 text-sm leading-6 text-slate-500 dark:border-slate-800 dark:text-slate-400">
+                <p
+                    className="mt-16 max-w-prose pt-6 text-sm leading-6"
+                    style={{ borderTop: "1px solid var(--color-cal-border)", color: "var(--color-cal-muted)" }}
+                >
                     The AI can misread code or miss files in very large repositories, so
                     check important answers on GitHub. The answers on this page are
                     examples, not real results.
